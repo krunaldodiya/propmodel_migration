@@ -1,0 +1,58 @@
+# Laravel Sail Docker Project Rules
+
+## Database Configuration
+
+- DB_HOST must always be set to `pgsql` (Docker service name)
+- Database runs inside Docker container, accessible via service name
+
+## Command Execution Rules
+
+- **ALWAYS** use Laravel Sail for all artisan commands
+- Use `./vendor/bin/sail artisan` instead of `php artisan`
+- Use `./vendor/bin/sail composer` instead of `composer`
+- Use `./vendor/bin/sail npm` instead of `npm`
+- Use `./vendor/bin/sail test` instead of `php artisan test`
+
+## Examples:
+
+### ✅ Correct:
+
+```bash
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan tinker
+./vendor/bin/sail composer install
+./vendor/bin/sail npm install
+./vendor/bin/sail artisan users:import
+./vendor/bin/sail artisan discount-codes:import
+```
+
+### ❌ Incorrect:
+
+```bash
+php artisan migrate
+composer install
+npm install
+php artisan users:import
+```
+
+## Exception Cases:
+
+- When Sail containers are not running, inform the user to start them with:
+    ```bash
+    ./vendor/bin/sail up -d
+    ```
+- If running commands from outside Docker is explicitly requested, temporarily change DB_HOST to `127.0.0.1` and restore it after
+
+## Database Access:
+
+- PostgreSQL is accessible at `localhost:5432` from host machine
+- Inside Docker network, use `pgsql:5432` (service name)
+- Credentials from .env file
+
+## Development Workflow:
+
+1. Start containers: `./vendor/bin/sail up -d`
+2. Run migrations: `./vendor/bin/sail artisan migrate`
+3. Run seeders: `./vendor/bin/sail artisan db:seed`
+4. Import data: `./vendor/bin/sail artisan [import-command]`
+5. Stop containers: `./vendor/bin/sail down`
