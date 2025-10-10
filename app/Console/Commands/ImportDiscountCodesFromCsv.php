@@ -158,9 +158,12 @@ class ImportDiscountCodesFromCsv extends Command
       return null;
     }
 
-    // If it's already valid JSON, return it
-    if (json_decode($value) !== null) {
-      return $value;
+    // Unescape double quotes in CSV format
+    $unescaped = str_replace('""', '"', $value);
+
+    // If it's valid JSON after unescaping, return it
+    if (json_decode($unescaped) !== null) {
+      return $unescaped;
     }
 
     return null;
