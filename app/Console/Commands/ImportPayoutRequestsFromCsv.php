@@ -219,14 +219,14 @@ class ImportPayoutRequestsFromCsv extends Command
     private function parseTimestamp(?string $timestamp): ?string
     {
         if (empty($timestamp)) {
-            return null;
+            return now()->format('Y-m-d H:i:s');
         }
 
         try {
             $date = new \DateTime($timestamp);
             return $date->format('Y-m-d H:i:s');
         } catch (\Exception $e) {
-            return null;
+            return now()->format('Y-m-d H:i:s');
         }
     }
 
