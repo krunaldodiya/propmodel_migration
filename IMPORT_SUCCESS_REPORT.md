@@ -9,6 +9,7 @@ This document reports the successful completion of the database migration proces
 | Table                         | Records Imported | Status          |
 | ----------------------------- | ---------------- | --------------- |
 | **Roles**                     | 5                | ✅ 100% Success |
+| **Permissions**               | 80               | ✅ 100% Success |
 | **Users**                     | 90,839           | ✅ 100% Success |
 | **Discount Codes**            | 53,892           | ✅ 100% Success |
 | **Purchases**                 | 258,662          | ✅ 100% Success |
@@ -21,8 +22,8 @@ This document reports the successful completion of the database migration proces
 
 ## 📈 Total Statistics
 
-- **Total Records Imported:** 701,522 records
-- **Total Tables Processed:** 10 tables
+- **Total Records Imported:** 701,602 records
+- **Total Tables Processed:** 11 tables
 - **Overall Success Rate:** 100%
 - **Total Errors:** 0
 - **Migration Status:** ✅ COMPLETED SUCCESSFULLY
@@ -39,6 +40,7 @@ This document reports the successful completion of the database migration proces
 ### Dependencies Resolved
 
 - Roles → Base table (no dependencies)
+- Permissions → Base table (no dependencies)
 - Users → Depends on Roles
 - Discount Codes → Depends on Users
 - Purchases → Depends on Users and Discount Codes
@@ -60,6 +62,7 @@ This document reports the successful completion of the database migration proces
 
 # Import commands
 ./vendor/bin/sail artisan roles:import csv/new_roles.csv
+./vendor/bin/sail artisan permissions:import csv/new_permissions.csv
 ./vendor/bin/sail artisan users:import csv/new_users.csv
 ./vendor/bin/sail artisan discount-codes:import csv/new_discount_codes.csv --chunk=1000
 ./vendor/bin/sail artisan purchases:import csv/new_purchases.csv
@@ -100,7 +103,7 @@ This document reports the successful completion of the database migration proces
 
 ## 🎉 Conclusion
 
-The database migration has been completed successfully with perfect data integrity. All 701,522 records across 10 tables have been imported without any errors. The application is now ready for production use with the migrated data.
+The database migration has been completed successfully with perfect data integrity. All 701,602 records across 11 tables have been imported without any errors. The application is now ready for production use with the migrated data.
 
 ---
 
