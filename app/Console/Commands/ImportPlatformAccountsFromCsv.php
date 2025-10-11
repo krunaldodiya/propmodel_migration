@@ -172,7 +172,7 @@ class ImportPlatformAccountsFromCsv extends Command
       if (empty($data['platform_group_uuid'])) {
         return null; // Skip if platform_group_uuid is empty (required field)
       }
-      
+
       if (!$this->isValidUuid($data['platform_group_uuid'])) {
         return null;
       }
@@ -206,7 +206,7 @@ class ImportPlatformAccountsFromCsv extends Command
         'platform_name' => !empty($data['platform_name']) ? $data['platform_name'] : 'mt5',
         'remote_group_name' => !empty($data['remote_group_name']) ? $data['remote_group_name'] : '0',
         'platform_group_uuid' => $data['platform_group_uuid'],
-        'current_phase' => !empty($data['current_phase']) ? (int) $data['current_phase'] : 1,
+        'current_phase' => isset($data['current_phase']) && $data['current_phase'] !== '' ? (int) $data['current_phase'] : 1,
         'main_password' => !empty($data['main_password']) ? $data['main_password'] : 'password',
         'investor_password' => !empty($data['investor_password']) ? $data['investor_password'] : 'password',
         'initial_balance' => !empty($data['initial_balance']) ? (float) $data['initial_balance'] : 0,
