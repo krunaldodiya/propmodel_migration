@@ -26,10 +26,6 @@ class ImportPurchasesFromCsv extends Command
      */
     private array $emailToUuid = [];
 
-    /**
-     * Discount code to UUID mapping cache
-     */
-    private array $discountCodeToUuid = [];
 
     /**
      * Execute the console command.
@@ -57,9 +53,6 @@ class ImportPurchasesFromCsv extends Command
         $this->info("Loading user mappings by email...");
         $this->loadUserMappings();
 
-        // Load discount code to UUID mapping
-        $this->info("Loading discount code mappings...");
-        $this->loadDiscountMappings();
 
         $file = fopen($filePath, 'r');
         $headers = fgetcsv($file);
@@ -150,22 +143,6 @@ class ImportPurchasesFromCsv extends Command
         $this->info("Loaded " . count($this->emailToUuid) . " user mappings");
     }
 
-    /**
-     * Load discount code to UUID mappings
-     */
-    private function loadDiscountMappings(): void
-    {
-        // Map by discount code since we don't have old IDs
-        $discounts = DB::table('discount_codes')
-            ->select('uuid', 'code')
-            ->get();
-
-        foreach ($discounts as $discount) {
-            $this->discountCodeToUuid[strtolower(trim($discount->code))] = $discount->uuid;
-        }
-
-        $this->info("Loaded " . count($this->discountCodeToUuid) . " discount code mappings");
-    }
 
     /**
      * Prepare purchase data from CSV row
@@ -184,13 +161,8 @@ class ImportPurchasesFromCsv extends Command
             // Get user_data for JSON conversion
             $userDataRaw = $data['user_data'] ?? '';
 
-            // Get discount UUID from discount_code
-            $discountCode = $data['discount_code'] ?? '';
-            $discountUuid = null;
-            if (!empty($discountCode)) {
-                $codeKey = strtolower(trim($discountCode));
-                $discountUuid = $this->discountCodeToUuid[$codeKey] ?? null;
-            }
+            // Get discount UUID directly from CSV
+            $discountUuid = !empty($data['discount_uuid']) ? $data['discount_uuid'] : null;
 
             // Convert PHP serialized data to JSON
             $userData = $this->convertSerializedToJson($userDataRaw);
