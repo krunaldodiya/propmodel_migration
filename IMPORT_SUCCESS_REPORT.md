@@ -8,7 +8,7 @@ This document reports the successful completion of the database migration proces
 
 | Table                           | Records Imported | Status          |
 | ------------------------------- | ---------------- | --------------- |
-| **Roles**                       | 5                | ✅ 100% Success |
+| **Roles**                       | 4                | ✅ 100% Success |
 | **Permissions**                 | 80               | ✅ 100% Success |
 | **Users**                       | 90,839           | ✅ 100% Success |
 | **Discount Codes**              | 53,892           | ✅ 100% Success |
@@ -17,15 +17,17 @@ This document reports the successful completion of the database migration proces
 | **Platform Groups**             | 32               | ✅ 100% Success |
 | **Platform Accounts**           | 67,930           | ✅ 100% Success |
 | **Account Stats**               | 67,523           | ✅ 100% Success |
+| **Equity Data Daily**           | 6,423,829        | ✅ 100% Success |
 | **Breach Account Activities**   | 9,683            | ✅ 100% Success |
 | **Platform Events**             | 149,925          | ✅ 100% Success |
+| **Periodic Trading Export**     | 11,482,970       | ✅ 100% Success |
 | **Default Challenge Settings**  | 1                | ✅ 100% Success |
 | **Advanced Challenge Settings** | 67,962           | ✅ 100% Success |
 
 ## 📈 Total Statistics
 
-- **Total Records Imported:** 769,565 records
-- **Total Tables Processed:** 13 tables
+- **Total Records Imported:** 18,676,364 records
+- **Total Tables Processed:** 15 tables
 - **Overall Success Rate:** 100%
 - **Total Errors:** 0
 - **Migration Status:** ✅ COMPLETED SUCCESSFULLY
@@ -50,8 +52,10 @@ This document reports the successful completion of the database migration proces
 - Platform Groups → Base table (no dependencies)
 - Platform Accounts → Depends on Users, Purchases, and Platform Groups
 - Account Stats → Depends on Platform Accounts
+- Equity Data Daily → Depends on Platform Accounts
 - Breach Account Activities → Depends on Platform Accounts
 - Platform Events → Depends on Users and Platform Accounts
+- Periodic Trading Export → Depends on Platform Accounts
 - Default Challenge Settings → Depends on Users (updated_by)
 - Advanced Challenge Settings → Depends on Platform Groups and Platform Accounts
 
@@ -73,9 +77,11 @@ This document reports the successful completion of the database migration proces
 ./vendor/bin/sail artisan payout-requests:import csv/new_payout_requests.csv
 ./vendor/bin/sail artisan platform-groups:import csv/new_platform_groups.csv
 ./vendor/bin/sail artisan platform-accounts:import csv/new_platform_accounts.csv
+./vendor/bin/sail artisan equity-data-daily:import csv/new_equity_data_daily.csv
 ./vendor/bin/sail artisan account-stats:import csv/new_account_stats.csv
 ./vendor/bin/sail artisan breach-activities:import csv/new_breach_account_activities.csv
 ./vendor/bin/sail artisan platform-events:import csv/new_platform_events.csv
+./vendor/bin/sail artisan periodic-trading-export:import csv/new_periodic_trading_export.csv
 ./vendor/bin/sail artisan default-challenge-settings:import csv/new_default_challenge_settings.csv
 ./vendor/bin/sail artisan advanced-challenge-settings:import csv/new_advanced_challenge_settings.csv
 ```
@@ -109,7 +115,7 @@ This document reports the successful completion of the database migration proces
 
 ## 🎉 Conclusion
 
-The database migration has been completed successfully with perfect data integrity. All 769,565 records across 13 tables have been imported without any errors. The application is now ready for production use with the migrated data.
+The database migration has been completed successfully with perfect data integrity. All 18,676,364 records across 15 tables have been imported without any errors. The application is now ready for production use with the migrated data.
 
 ---
 
