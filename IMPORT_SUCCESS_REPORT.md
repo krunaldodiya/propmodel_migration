@@ -15,9 +15,9 @@ sail php artisan permissions:import csv/new_permissions.csv
 sail php artisan users:import csv/new_users.csv --chunk=1000
 sail php artisan discount-codes:import csv/new_discount_codes.csv --chunk=1000
 sail php artisan purchases:import csv/new_purchases.csv --chunk=1000
-sail php artisan payout-requests:import csv/new_payout_requests.csv --chunk=1000
 sail php artisan platform-groups:import csv/new_platform_groups.csv --chunk=1000
 sail php artisan platform-accounts:import csv/new_platform_accounts.csv --chunk=1000
+sail php artisan payout-requests:import csv/new_payout_requests.csv --chunk=1000
 sail php artisan account-stats:import csv/new_account_stats.csv --chunk=1000
 sail php artisan equity-data-daily:import csv/new_equity_data_daily.csv --chunk=1000
 sail php artisan breach-activities:import csv/new_breach_account_activities.csv --chunk=1000
