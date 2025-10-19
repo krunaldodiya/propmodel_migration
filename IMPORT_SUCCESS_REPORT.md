@@ -6,7 +6,25 @@ This document reports the successful completion of the database migration proces
 
 ## Truncate existing tables
 
-php artisan db:truncate --table-names=account_stats,advanced_challenge_settings,breach_account_activities,default_challenge_settings,discount_codes,equity_data_daily,payout_requests,periodic_trading_export,permissions,platform_accounts,platform_events,platform_groups,purchases,roles,users
+sail php artisan db:truncate --table-names=account_stats,advanced_challenge_settings,breach_account_activities,default_challenge_settings,discount_codes,equity_data_daily,payout_requests,periodic_trading_export,permissions,platform_accounts,platform_events,platform_groups,purchases,roles,users
+
+## Import CSV data
+
+sail php artisan roles:import csv/new_roles.csv
+sail php artisan permissions:import csv/new_permissions.csv
+sail php artisan users:import csv/new_users.csv --chunk=1000
+sail php artisan discount-codes:import csv/new_discount_codes.csv --chunk=1000
+sail php artisan purchases:import csv/new_purchases.csv --chunk=1000
+sail php artisan payout-requests:import csv/new_payout_requests.csv --chunk=1000
+sail php artisan platform-groups:import csv/new_platform_groups.csv --chunk=1000
+sail php artisan platform-accounts:import csv/new_platform_accounts.csv --chunk=1000
+sail php artisan account-stats:import csv/new_account_stats.csv --chunk=1000
+sail php artisan equity-data-daily:import csv/new_equity_data_daily.csv --chunk=1000
+sail php artisan breach-activities:import csv/new_breach_account_activities.csv --chunk=1000
+sail php artisan platform-events:import csv/new_platform_events.csv --chunk=1000
+sail php artisan periodic-trading-export:import csv/new_periodic_trading_export.csv --chunk=1000
+sail php artisan default-challenge-settings:import csv/new_default_challenge_settings.csv --chunk=1000
+sail php artisan advanced-challenge-settings:import csv/new_advanced_challenge_settings.csv --chunk=1000
 
 ## 🎯 Migration Summary
 
