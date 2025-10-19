@@ -4,6 +4,10 @@
 
 This document reports the successful completion of the database migration process for the PropModel application. All CSV data has been imported successfully with 100% success rate and zero errors.
 
+## Truncate existing tables
+
+php artisan db:truncate --table-names=account_stats,advanced_challenge_settings,breach_account_activities,default_challenge_settings,discount_codes,equity_data_daily,payout_requests,periodic_trading_export,permissions,platform_accounts,platform_events,platform_groups,purchases,roles,users
+
 ## 🎯 Migration Summary
 
 | Table                           | Records Imported | Status          |
